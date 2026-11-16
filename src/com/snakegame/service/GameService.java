@@ -7,65 +7,88 @@ import com.snakegame.dto.Food;
 import com.snakegame.dto.Snake;
 
 public class GameService {
-    public enum MoveResult {
-        MOVED,
-        ATE,
-        WALL,
-        SELF
+  public enum MoveResult {
+    MOVED,
+    ATE,
+    WALL,
+    SELF
+  }
+
+  private final Board board;
+  private final Snake snake;
+  private final FoodService foodService;
+  private Food food;
+  private int score;
+  private int foodsEaten;
+
+  public GameService() {
+
+    board = new Board();
+   
+    snake = new Snake(Board.ROWS / 2, Board.COLS / 2);
+
+    foodService = new FoodService();
+    
+    food = foodService.spawnFood(snake);
+    
+    score = 0;
+    
+    foodsEaten = 0;
+  }
+
+  public MoveResult move(Direction d) {
+
+    Cell newHead = snake.nextHead(d);
+
+    if (!board.isInside(newHead)) {
+    return MoveResult.WALL;
+}
+
+    boolean eating = newHead.equals(food.getCell());
+
+    if (snake.willHitSelf(newHead, eating)) {
+
+      return MoveResult.SELF;
+
     }
 
-    private final Board board;
-    private final Snake snake;
-    private final FoodService foodService;
-    private Food food;
-    private int score;
-    private int foodsEaten;
+    snake.move(newHead, eating);
 
-    public GameService() {
-        board = new Board();
-        snake = new Snake(Board.ROWS / 2, Board.COLS / 2);
-        foodService = new FoodService();
-        food = foodService.spawnFood(snake);
-        score = 0;
-        foodsEaten = 0;
+    if (eating) {
+
+      foodsEaten++;
+
+      score ++;
+
+      food = foodService.spawnFood(snake);
+
+      return MoveResult.ATE;
+
     }
 
-    public MoveResult move(Direction d) {
-        Cell newHead = snake.nextHead(d);
-        if (!board.isInside(newHead)) {
-            return MoveResult.SELF;
-        }
-        boolean eating = newHead.equals(food.getCell());
-        if (snake.willHitSelf(newHead, eating)) {
-            return MoveResult.WALL;
-        }
-        snake.move(newHead, !eating);
-        foodsEaten++;
-        if (eating) {
-            score += 1;
-            food = foodService.spawnFood(snake);
-            return MoveResult.ATE;
-        }
-        return MoveResult.MOVED;
-    }
+    return MoveResult.MOVED;
+  }
 
-    public Board getBoard() {
-        return board;
-    }
+  public Board getBoard() {
 
-    public Snake getSnake() {
-        return snake;
-    }
+    return board;
+  }
 
-    public Food getFood() {
-        return food;
-    }
+  public Snake getSnake() {
 
-    public int getScore() {
-        return foodsEaten;
-    }
+    return snake;
+  }
 
-    public int getFoodsEaten() {
-        return score;
-    }
+  public Food getFood() {
+
+    return food;
+  }
+
+  public int getScore() {
+    return score;
+}
+
+public int getFoodsEaten() {
+    return foodsEaten;
+}
 }
