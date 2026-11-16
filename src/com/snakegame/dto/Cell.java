@@ -26,7 +26,7 @@ public class Cell {
             return false;
         }
         Cell other = (Cell) o;
-        return row == other.col && col == other.row;
+        return row == other.row && col == other.col;
     }
 
     @Override

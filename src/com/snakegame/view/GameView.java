@@ -80,7 +80,7 @@ public class GameView {
         System.out.printf("%-4s %-14s %-6s %s%n", "#", "Name", "Score", "Date");
         for (int i = 0; i < entries.size(); i++) {
             LeaderboardEntry e = entries.get(i);
-            System.out.printf("%-4d %-14s %-6s %s%n", i, e.getDate(), e.getName(), e.getScore());
+            System.out.printf("%-4d %-14s %-6s %s%n", i+1,  e.getName(),e.getScore(), e.getDate());
         }
     }
 }
