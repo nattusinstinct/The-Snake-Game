@@ -13,8 +13,8 @@ public class FoodService {
         Cell cell;
         do {
             int row = random.nextInt(Board.ROWS);
-            int col = random.nextInt(Board.ROWS);
-            cell = new Cell(col, row);
+            int col = random.nextInt(Board.COLS);
+            cell = new Cell(row, col);
         } while (snake.occupies(cell));
         int points = random.nextInt(5);
         return new Food(cell, points);

@@ -3,16 +3,20 @@ package com.snakegame.dto;
 import java.util.LinkedList;
 
 public class Snake {
-    private final LinkedList<Cell> body = new LinkedList<>();
+
+    // public static int  = 2;
+    private  LinkedList<Cell> body = new LinkedList<>();
 
     public Snake(int startRow, int startCol) {
         body.add(new Cell(startRow, startCol));
-        body.add(new Cell(startRow, startCol - 1));
-        body.add(new Cell(startRow, startCol - 2));
+        body.add(new Cell(startRow, startCol-1));
+        body.add(new Cell(startRow, startCol-2));
+        // body.add(new Cell(startRow, startCol-bodyAdd));
+    
     }
 
     public Cell getHead() {
-        return body.getLast();
+        return body.getFirst();
     }
 
     public LinkedList<Cell> getBody() {
@@ -25,21 +29,25 @@ public class Snake {
 
     public boolean occupies(Cell c) {
         for (Cell part : body) {
-            if (part == c) {
-                return true;
-            }
+        if (part .equals(c)) {
+            return true;
+        }
         }
         return false;
     }
 
     public Cell nextHead(Direction d) {
+        
         Cell head = getHead();
         return new Cell(head.getRow() + d.getDRow(), head.getCol() + d.getDCol());
     }
 
     public void move(Cell newHead, boolean grow) {
         body.addFirst(newHead);
-        body.removeLast();
+        if(grow){
+            body.removeLast();
+        }
+        
     }
 
     public boolean willHitSelf(Cell newHead, boolean grow) {
@@ -50,5 +58,8 @@ public class Snake {
             }
         }
         return false;
+    }
+    public void getSnake(){
+        System.out.println(body);
     }
 }
