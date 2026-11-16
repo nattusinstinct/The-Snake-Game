@@ -12,7 +12,7 @@ public class Snake {
     }
 
     public Cell getHead() {
-        return body.getLast();
+        return body.getFirst();
     }
 
     public LinkedList<Cell> getBody() {
@@ -25,7 +25,7 @@ public class Snake {
 
     public boolean occupies(Cell c) {
         for (Cell part : body) {
-            if (part == c) {
+            if (part.equals(c)) {
                 return true;
             }
         }
@@ -39,11 +39,16 @@ public class Snake {
 
     public void move(Cell newHead, boolean grow) {
         body.addFirst(newHead);
-        body.removeLast();
+        if(grow){
+            body.removeLast();
+    }
+        
     }
 
     public boolean willHitSelf(Cell newHead, boolean grow) {
-        int limit = body.size();
+        
+        int limit = (grow) ? body.size() : body.size()-1;
+
         for (int i = 0; i < limit; i++) {
             if (body.get(i).equals(newHead)) {
                 return true;

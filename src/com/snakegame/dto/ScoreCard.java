@@ -25,11 +25,11 @@ public class ScoreCard {
     }
 
     public int getFoodsEaten() {
-        return finalLength;
+        return foodsEaten;
     }
 
     public int getFinalLength() {
-        return foodsEaten;
+        return finalLength;
     }
 
     public long getDurationSeconds() {

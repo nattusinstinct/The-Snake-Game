@@ -58,7 +58,7 @@ public class JsonUtil {
 
     private static LeaderboardEntry parseEntry(String obj) {
         String name = extractString(obj, "name");
-        int score = (int) extractNumber(obj, "points");
+        int score = (int) extractNumber(obj, "score");
         String date = extractString(obj, "date");
         return new LeaderboardEntry(name, score, date);
     }
