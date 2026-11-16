@@ -25,11 +25,11 @@ public class ScoreCard {
     }
 
     public int getFoodsEaten() {
-        return finalLength;
+        return  foodsEaten;
     }
 
     public int getFinalLength() {
-        return foodsEaten;
+        return finalLength;
     }
 
     public long getDurationSeconds() {
@@ -37,7 +37,7 @@ public class ScoreCard {
     }
 
     public int getRank() {
-        return rank;
+        return rank ;
     }
 
     public void setRank(int rank) {

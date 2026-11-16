@@ -3,7 +3,7 @@ package com.snakegame.view;
 import com.snakegame.dto.Board;
 import com.snakegame.dto.Cell;
 import com.snakegame.dto.Food;
-import com.snakegame.dto.LeaderboardEntry;
+import com.snakegame.dto.LeaderBoardEntry;
 import com.snakegame.dto.ScoreCard;
 import com.snakegame.dto.Snake;
 import java.util.List;
@@ -12,29 +12,29 @@ import java.util.Scanner;
 public class GameView {
 
     public void printWelcome() {
-        System.out.println("==============================");
+        System.out.println("\n==============================");
         System.out.println("          SNAKE GAME");
         System.out.println("==============================");
     }
 
     public String readPlayerName(Scanner scanner) {
-        System.out.print("Enter your name: ");
+        System.out.print("\nEnter your name: ");
         return scanner.nextLine();
     }
 
     public String readMove(Scanner scanner) {
-        System.out.print("Move (L/R/T/B) or Q to quit: ");
-        return scanner.nextLine();
+        System.out.print("\nMove (L/R/T/B) or Q to quit: ");
+        return scanner.nextLine();  
     }
 
     public void printBoard(Snake snake, Food food, int score) {
         StringBuilder border = new StringBuilder("+");
-        for (int c = 0; c < Board.ROWS; c++) {
+        for (int c = 0; c < Board.COLS; c++) {
             border.append('-');
         }
         border.append('+');
         System.out.println(border);
-        for (int r = 0; r < Board.ROWS - 1; r++) {
+        for (int r = 0; r < Board.ROWS ; r++) {
             StringBuilder row = new StringBuilder("|");
             for (int c = 0; c < Board.COLS; c++) {
                 Cell cell = new Cell(r, c);
@@ -73,14 +73,15 @@ public class GameView {
         }
     }
 
-    public void printLeaderboard(List<LeaderboardEntry> entries) {
+    public void printLeaderboard(List<LeaderBoardEntry> entries) {
+        System.out.println(entries.size());
         System.out.println("------------------------------");
         System.out.println("           LEADERBOARD");
         System.out.println("------------------------------");
         System.out.printf("%-4s %-14s %-6s %s%n", "#", "Name", "Score", "Date");
         for (int i = 0; i < entries.size(); i++) {
-            LeaderboardEntry e = entries.get(i);
-            System.out.printf("%-4d %-14s %-6s %s%n", i, e.getDate(), e.getName(), e.getScore());
+            LeaderBoardEntry e = entries.get(i);
+            System.out.printf("%-4d %-14s %-6s %s%n", i+1, e.getName(), e.getScore(),e.getDate());
         }
     }
 }

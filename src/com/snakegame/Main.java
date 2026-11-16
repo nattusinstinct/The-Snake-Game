@@ -7,6 +7,7 @@ public class Main {
         try {
             new GameController().start();
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

@@ -1,20 +1,21 @@
 package com.snakegame.dao;
 
-import com.snakegame.dto.LeaderboardEntry;
+import com.snakegame.dto.LeaderBoardEntry;
 import java.util.ArrayList;
 import java.util.List;
 
 public class JsonUtil {
+ 
 
-    public static String entriesToJson(List<LeaderboardEntry> entries) {
+    public static String entriesToJson(List<LeaderBoardEntry> entries) {
         StringBuilder sb = new StringBuilder();
         sb.append("[\n");
         for (int i = 0; i < entries.size(); i++) {
-            LeaderboardEntry e = entries.get(i);
+            LeaderBoardEntry e = entries.get(i);
             sb.append("  {\"name\": \"").append(e.getName())
                     .append("\", \"score\": ").append(e.getScore())
                     .append(", \"date\": \"").append(e.getDate()).append("\"}");
-            if (i < entries.size()) {
+            if (i < entries.size()-1) {
                 sb.append(",");
             }
             sb.append("\n");
@@ -23,12 +24,9 @@ public class JsonUtil {
         return sb.toString();
     }
 
-    private static String escape(String s) {
-        return s.replace("\\", "\\\\").replace("\"", "\\\"");
-    }
-
-    public static List<LeaderboardEntry> entriesFromJson(String json) {
-        List<LeaderboardEntry> entries = new ArrayList<>();
+    public static List<LeaderBoardEntry> entriesFromJson(String json) {
+        List<LeaderBoardEntry> entries = new ArrayList<>();
+        
         if (json == null) {
             return entries;
         }
@@ -56,11 +54,11 @@ public class JsonUtil {
         return entries;
     }
 
-    private static LeaderboardEntry parseEntry(String obj) {
+    private static LeaderBoardEntry parseEntry(String obj) {
         String name = extractString(obj, "name");
-        int score = (int) extractNumber(obj, "points");
+        int score = (int) extractNumber(obj, "score");
         String date = extractString(obj, "date");
-        return new LeaderboardEntry(name, score, date);
+        return new LeaderBoardEntry(name, score, date);
     }
 
     private static String extractString(String obj, String field) {

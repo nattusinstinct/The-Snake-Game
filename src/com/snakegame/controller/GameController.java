@@ -21,24 +21,32 @@ public class GameController {
         view.printBoard(game.getSnake(), game.getFood(), game.getScore());
         while (running) {
             String input = view.readMove(scanner);
-            if (input == "Q") {
+            if (input.equals("")) {
+                view.printMessage("\nInvalid input. Use L, R, T, B or Q.");
+                continue;
+            }
+            if(!input.equalsIgnoreCase("t") && !input.equalsIgnoreCase("b") && !input.equalsIgnoreCase("r") && !input.equalsIgnoreCase("l")){
+                view.printMessage("\nInvalid input. Use L, R, T, B or Q.");
+                continue;
+            }
+            if (input.equals("Q")) {
                 view.printMessage("You quit the game.");
                 System.exit(0);
             }
             Direction direction = Direction.fromChar(input.charAt(0));
-            if (direction == null) {
-                view.printMessage("Invalid input. Use L, R, T, B or Q.");
-                continue;
-            }
+            
             MoveResult result = game.move(direction);
+
             if (result == MoveResult.WALL) {
                 view.printMessage("You hit the wall!");
                 running = false;
             } else if (result == MoveResult.SELF) {
+                
                 view.printMessage("You ran into yourself!");
                 running = false;
             } else if (result == MoveResult.ATE) {
                 view.printMessage("Yum! That food was worth it.");
+                running = true;
             }
             view.printBoard(game.getSnake(), game.getFood(), game.getScore());
         }
