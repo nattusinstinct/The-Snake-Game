@@ -19,9 +19,10 @@ public class GameController {
         long startTime = System.currentTimeMillis();
         boolean running = true;
         view.printBoard(game.getSnake(), game.getFood(), game.getScore());
+        
         while (running) {
             String input = view.readMove(scanner);
-            if (input == "Q") {
+            if (input.equalsIgnoreCase("Q")) {
                 view.printMessage("You quit the game.");
                 System.exit(0);
             }
@@ -42,7 +43,8 @@ public class GameController {
             }
             view.printBoard(game.getSnake(), game.getFood(), game.getScore());
         }
-        long durationSeconds = System.currentTimeMillis() - startTime;
+        long durationSeconds =
+        (System.currentTimeMillis() - startTime) / 1000;
         scoreController.finish(player, game, durationSeconds);
     }
 

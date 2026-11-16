@@ -1,6 +1,7 @@
 package com.snakegame.dto;
 
 public class Food {
+    
     private final Cell cell;
     private final int points;
 

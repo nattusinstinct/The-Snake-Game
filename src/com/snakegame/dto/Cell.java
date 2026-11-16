@@ -16,18 +16,22 @@ public class Cell {
     public int getCol() {
         return col;
     }
-
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!(o instanceof Cell)) {
-            return false;
-        }
-        Cell other = (Cell) o;
-        return row == other.col && col == other.row;
+   
+   public boolean equals(Object o) {
+    if (this == o) {
+        return true;
     }
+    if (!(o instanceof Cell)) {
+        return false;
+    }
+
+    Cell other = (Cell) o;
+
+    return row == other.row && col == other.col;
+}
+
+
 
     @Override
     public int hashCode() {
