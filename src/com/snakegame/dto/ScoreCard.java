@@ -1,6 +1,7 @@
 package com.snakegame.dto;
 
 public class ScoreCard {
+
     private final String playerName;
     private final int score;
     private final int foodsEaten;
@@ -25,11 +26,11 @@ public class ScoreCard {
     }
 
     public int getFoodsEaten() {
-        return finalLength;
+        return foodsEaten;
     }
 
     public int getFinalLength() {
-        return foodsEaten;
+        return finalLength;
     }
 
     public long getDurationSeconds() {

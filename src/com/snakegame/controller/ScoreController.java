@@ -13,9 +13,10 @@ public class ScoreController {
     private final GameView view = new GameView();
 
     public void finish(Player player, GameService game, long durationSeconds) {
-        List<LeaderboardEntry> top = scoreService.getTopScores();
+       
         ScoreCard card = scoreService.finishGame(player, game, durationSeconds);
         view.printScoreCard(card);
+        List<LeaderboardEntry> top = scoreService.getTopScores();
         view.printLeaderboard(top);
     }
 }

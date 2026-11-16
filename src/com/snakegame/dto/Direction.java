@@ -1,10 +1,12 @@
 package com.snakegame.dto;
 
 public enum Direction {
-    LEFT(0, -1),
-    RIGHT(0, 1),
-    TOP(1, 0),
-    BOTTOM(-1, 0);
+
+    LEFT(0, -1),   
+    RIGHT(0, 1),   
+    TOP(-1, 0),   
+    BOTTOM(1, 0);   
+
 
     private final int dRow;
     private final int dCol;
@@ -23,9 +25,10 @@ public enum Direction {
     }
 
     public static Direction fromChar(char c) {
-        switch (c) {
+        char uppercase = Character.toUpperCase(c);
+        switch (uppercase) {
             case 'L':
-                return RIGHT;
+                return LEFT;
             case 'R':
                 return RIGHT;
             case 'T':
@@ -33,7 +36,7 @@ public enum Direction {
             case 'B':
                 return BOTTOM;
             default:
-                return LEFT;
+                return null;
         }
     }
 }

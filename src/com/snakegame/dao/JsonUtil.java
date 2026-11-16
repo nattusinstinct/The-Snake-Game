@@ -11,10 +11,10 @@ public class JsonUtil {
         sb.append("[\n");
         for (int i = 0; i < entries.size(); i++) {
             LeaderboardEntry e = entries.get(i);
-            sb.append("  {\"name\": \"").append(e.getName())
+            sb.append("  {\"name\": \"").append(escape(e.getName()))
                     .append("\", \"score\": ").append(e.getScore())
                     .append(", \"date\": \"").append(e.getDate()).append("\"}");
-            if (i < entries.size()) {
+            if (i < entries.size() - 1) {
                 sb.append(",");
             }
             sb.append("\n");
@@ -58,7 +58,7 @@ public class JsonUtil {
 
     private static LeaderboardEntry parseEntry(String obj) {
         String name = extractString(obj, "name");
-        int score = (int) extractNumber(obj, "points");
+        int score = (int) extractNumber(obj, "score");
         String date = extractString(obj, "date");
         return new LeaderboardEntry(name, score, date);
     }
@@ -107,7 +107,7 @@ public class JsonUtil {
         }
         long value = 0;
         while (p < obj.length() && Character.isDigit(obj.charAt(p))) {
-            value = value + (obj.charAt(p) - '0');
+          value = value * 10 + (obj.charAt(p) - '0');
             p++;
         }
         return negative ? -value : value;
