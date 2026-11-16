@@ -29,11 +29,11 @@ public class GameView {
 
     public void printBoard(Snake snake, Food food, int score) {
         StringBuilder border = new StringBuilder("+");
-        for (int c = 0; c < Board.ROWS; c++) {
+        for (int c = 0; c < Board.COLS; c++) {
             border.append('-');
         }
         border.append('+');
-        System.out.println(border);
+        System.out.println(border.toString());
         for (int r = 0; r < Board.ROWS - 1; r++) {
             StringBuilder row = new StringBuilder("|");
             for (int c = 0; c < Board.COLS; c++) {
@@ -49,7 +49,7 @@ public class GameView {
                 }
             }
             row.append('|');
-            System.out.println(row);
+            System.out.println(row.toString());
         }
         System.out.println(border);
         System.out.println("Score: " + score);
@@ -80,7 +80,7 @@ public class GameView {
         System.out.printf("%-4s %-14s %-6s %s%n", "#", "Name", "Score", "Date");
         for (int i = 0; i < entries.size(); i++) {
             LeaderboardEntry e = entries.get(i);
-            System.out.printf("%-4d %-14s %-6s %s%n", i, e.getDate(), e.getName(), e.getScore());
+            System.out.printf("%-4d %-14s %-6s %s%n", i + 1 , e.getName(), e.getScore() ,e.getDate());
         }
     }
 }

@@ -15,7 +15,7 @@ public class LeaderboardDAO {
 
     public List<LeaderboardEntry> load() {
         Path path = Paths.get(FILE);
-        if (Files.exists(path)) {
+        if (!Files.exists(path)) {
             return new ArrayList<>();
         }
         try {
@@ -28,7 +28,7 @@ public class LeaderboardDAO {
 
     public void save(List<LeaderboardEntry> entries) {
         try {
-            Files.write(Paths.get("leaderboard.json"), JsonUtil.entriesToJson(entries).getBytes());
+            Files.write(Paths.get(FILE), JsonUtil.entriesToJson(entries).getBytes());
         } catch (IOException e) {
             System.out.println("Could not save leaderboard: " + e.getMessage());
         }
@@ -36,12 +36,13 @@ public class LeaderboardDAO {
 
     public List<LeaderboardEntry> recordScore(LeaderboardEntry entry) {
         List<LeaderboardEntry> entries = load();
-        entries.sort((a, b) -> a.getScore() - b.getScore());
+          entries.add(entry);
+          save(entries);
+        entries.sort((a, b) -> b.getScore() - a.getScore());
         if (entries.size() > MAX_ENTRIES) {
-            entries = new ArrayList<>(entries.subList(0, MAX_ENTRIES - 1));
+            entries = new ArrayList<>(entries.subList(0, MAX_ENTRIES));
         }
-        entries.add(entry);
-        save(entries);
+        
         return entries;
     }
 }

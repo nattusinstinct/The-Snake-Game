@@ -3,6 +3,7 @@ package com.snakegame.dto;
 import java.util.LinkedList;
 
 public class Snake {
+
     private final LinkedList<Cell> body = new LinkedList<>();
 
     public Snake(int startRow, int startCol) {
@@ -12,7 +13,7 @@ public class Snake {
     }
 
     public Cell getHead() {
-        return body.getLast();
+        return body.getFirst();
     }
 
     public LinkedList<Cell> getBody() {
@@ -25,7 +26,7 @@ public class Snake {
 
     public boolean occupies(Cell c) {
         for (Cell part : body) {
-            if (part == c) {
+            if (part.equals(c)) {
                 return true;
             }
         }
@@ -39,16 +40,26 @@ public class Snake {
 
     public void move(Cell newHead, boolean grow) {
         body.addFirst(newHead);
-        body.removeLast();
+        if (!grow) {
+            body.removeLast();
+        }
     }
 
     public boolean willHitSelf(Cell newHead, boolean grow) {
-        int limit = body.size();
+
+        int limit;
+
+        if (grow) {
+            limit = body.size();
+        } else {
+            limit = body.size() - 1;
+        }
         for (int i = 0; i < limit; i++) {
             if (body.get(i).equals(newHead)) {
                 return true;
             }
         }
+
         return false;
     }
 }
